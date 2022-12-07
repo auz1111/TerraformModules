@@ -2,22 +2,11 @@
 # Additional Microsoft Docs https://learn.microsoft.com/en-us/azure/app-service/provision-resource-terraform?source=docs
 
 
-# Create the resource group
-resource "azurerm_resource_group" "rg" {
-  name     = "${var.resource_group_name}"
-  location = var.resource_group_location
-
-  tags = {
-    "environment" = "value"
-    "build" = "Terraform"
-  }
-}
-
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
   name                = "${var.service_plan_name}"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
   os_type             = "Linux"
   sku_name            = "F1" #Sku
 }
@@ -25,11 +14,12 @@ resource "azurerm_service_plan" "appserviceplan" {
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
   name                  = var.linux_web_app_name
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
+  location              = var.resource_group_location
+  resource_group_name   = var.resource_group_name
   service_plan_id       = azurerm_service_plan.appserviceplan.id
   https_only            = true
   site_config { 
+    always_on           = false
     minimum_tls_version = "1.2"
   }
 }
