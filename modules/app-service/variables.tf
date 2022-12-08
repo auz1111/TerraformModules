@@ -17,3 +17,9 @@ variable "linux_web_app_name" {
   type        = string
   description = "The name of the web app."
 }
+
+variable "github_token" {
+  type        = string
+  description = "Specifies the GitHub PAT token or `GITHUB_TOKEN`"
+  sensitive = true
+}

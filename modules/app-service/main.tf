@@ -18,6 +18,7 @@ resource "azurerm_linux_web_app" "webapp" {
   resource_group_name   = var.resource_group_name
   service_plan_id       = azurerm_service_plan.appserviceplan.id
   https_only            = true
+  
   site_config { 
     always_on           = false
     minimum_tls_version = "1.2"
@@ -27,8 +28,13 @@ resource "azurerm_linux_web_app" "webapp" {
 #  Deploy code from a public GitHub repo
 resource "azurerm_app_service_source_control" "sourcecontrol" {
   app_id             = azurerm_linux_web_app.webapp.id
-  repo_url           = "https://github.com/Azure-Samples/nodejs-docs-hello-world"
+  repo_url           = "https://github.com/Azure-Samples/nodejs-docs-hello-world.git"
   branch             = "main"
   use_manual_integration = false
   use_mercurial      = false
+}
+
+resource "azurerm_source_control_token" "GitHub" {
+  type  = "GitHub"
+  token = var.github_token
 }
