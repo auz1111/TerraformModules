@@ -3,7 +3,6 @@
 tf.plan
 *.tfvars
 *.tfstate
-*.tfstate.*
 *.lock.hcl
 plan.out
 # User-specific files
@@ -293,4 +292,3 @@ MigrationBackup/
 .ionide/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-terraform.tfstate.backup
