@@ -3,6 +3,7 @@
 tf.plan
 *.tfvars
 *.tfstate
+*.tfstate.*
 *.lock.hcl
 plan.out
 # User-specific files
