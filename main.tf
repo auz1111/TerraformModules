@@ -12,5 +12,4 @@ module "service-plan" {
     resource_group_name        = module.resource-group.resource_group_name
     service_plan_name          = "auz1111appplan"
     linux_web_app_name         = "auz1111webapp"
-    github_token = "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"
 }
